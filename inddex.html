@@ -1,0 +1,2332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>LFJC Online Exam</title>
+<style>
+/* Your existing CSS styles remain exactly the same */
+/* ===== BASE STYLES ===== */
+:root {
+  --primary-color: #4B0082;
+  --secondary-color: #D8BFD8;
+  --light-purple: #E6E6FA;
+  --white: #fff;
+  --black: #000;
+  --success: #32CD32;
+  --warning: #ff9900;
+  --danger: #ff6666;
+  --shadow: 0 5px 15px rgba(0,0,0,0.1);
+  --transition: all 0.3s ease;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "SF Pro Display", Arial, sans-serif;
+  margin: 0;
+  background: var(--white);
+  color: var(--black);
+  line-height: 1.6;
+  /* Disable text selection and right-click */
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* Disable right-click context menu */
+body {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* Enhanced Screenshot protection - IMPROVED */
+#screenshotProtection {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  z-index: 2147483647;
+  pointer-events: none;
+}
+
+.screenshot-dots {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: 
+    radial-gradient(circle at 10% 20%, rgba(255,255,255,0.02) 1px, transparent 1px),
+    radial-gradient(circle at 30% 40%, rgba(255,255,255,0.02) 1px, transparent 1px),
+    radial-gradient(circle at 50% 60%, rgba(255,255,255,0.02) 1px, transparent 1px),
+    radial-gradient(circle at 70% 80%, rgba(255,255,255,0.02) 1px, transparent 1px),
+    radial-gradient(circle at 90% 10%, rgba(255,255,255,0.02) 1px, transparent 1px);
+  background-size: 200px 200px;
+  animation: flicker 0.5s infinite;
+}
+
+@keyframes flicker {
+  0%, 100% { opacity: 0.8; }
+  50% { opacity: 0.9; }
+}
+
+/* Additional screenshot protection */
+#screenshotBlock {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  z-index: 2147483646;
+  pointer-events: none;
+}
+
+/* ===== HEADER & FOOTER ===== */
+header {
+  background: linear-gradient(145deg, var(--light-purple), var(--secondary-color));
+  color: var(--primary-color);
+  text-align: center;
+  padding: 20px;
+  font-size: 36px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  box-shadow: var(--shadow);
+  text-shadow: 0 1px 2px var(--white);
+}
+
+footer {
+  background: var(--light-purple);
+  color: var(--primary-color);
+  padding: 10px;
+  text-align: center;
+  font-weight: bold;
+  position: fixed;
+  width: 100%;
+  bottom: 0;
+}
+
+/* ===== STUDENT ENTRY SECTION ===== */
+#studentEntry {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: calc(100vh - 140px);
+  padding: 16px;
+  text-align: center;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 60px;
+  width: 100%;
+  max-width: 500px;
+}
+
+.form-group label {
+  font-size: 1.15rem;
+  font-weight: 600;
+  margin-right: 10px;
+  color: var(--primary-color);
+  width: 180px;
+  text-align: right;
+}
+
+input[type="text"] {
+  padding: 12px 14px;
+  font-size: 1.1rem;
+  border-radius: 10px;
+  border: 1.5px solid var(--primary-color);
+  outline: none;
+  min-width: 250px;
+  transition: var(--transition);
+}
+
+input[type="text"]:focus {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(75, 0, 130, 0.2);
+}
+
+input.error {
+  animation: glowRed 0.5s alternate infinite;
+  border-color: var(--danger);
+}
+
+@keyframes glowRed {
+  0% { box-shadow: 0 0 5px var(--danger); }
+  100% { box-shadow: 0 0 15px var(--danger); }
+}
+
+/* ===== BUTTON STYLES ===== */
+button {
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  border: none;
+  border-radius: 12px;
+  transition: var(--transition);
+  box-shadow: 0 6px #aaa;
+  background: linear-gradient(to bottom, #fafaff, #dcd6f7);
+  color: var(--primary-color);
+  font-weight: 600;
+  padding: 12px 24px;
+  font-size: 18px;
+}
+
+button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 15px rgba(0,0,0,.28);
+}
+
+button:active {
+  transform: translateY(3px) scale(.98);
+}
+
+button:focus {
+  outline: 2px solid var(--primary-color);
+  outline-offset: 2px;
+}
+
+.optBtn {
+  font-size: 16px;
+  padding: 8px 18px;
+  margin: 6px;
+  border: 2px solid var(--primary-color);
+  background: var(--white);
+  border-radius: 8px;
+  box-shadow: 0 5px #aaa;
+}
+
+.optBtn.selected {
+  background: var(--success);
+  color: var(--white);
+  border-color: #2fa92f;
+}
+
+.optBtn.correct {
+  background: #32CD32;
+  color: white;
+  border-color: #228B22;
+}
+
+.optBtn.wrong {
+  background: #FF6B6B;
+  color: white;
+  border-color: #DC143C;
+}
+
+.optBtn.not-attempted {
+  background: #B0B0B0;
+  color: white;
+  border-color: #808080;
+}
+
+.navBtn {
+  font-size: 16px;
+  padding: 10px 20px;
+  border-radius: 8px;
+  color: var(--white);
+  font-weight: bold;
+  cursor: pointer;
+  background: linear-gradient(145deg, #1E90FF, #4682B4);
+  margin: 0 15px; /* Added gap between navigation buttons */
+}
+
+#markReviewBtn {
+  background: linear-gradient(145deg, #ffb84d, var(--warning));
+}
+
+#submitBtn {
+  background: linear-gradient(145deg, #c8b88a, #b49e60);
+}
+
+/* ===== TIMER STYLES ===== */
+#timerEl {
+  font-size: 20px;
+  font-weight: bold;
+  color: var(--primary-color);
+  padding: 6px 12px;
+  border-radius: 6px;
+  background: #f0f0ff;
+  display: inline-block;
+  transition: var(--transition);
+}
+
+#timerEl.blink {
+  animation: blinkTimer 1s infinite;
+}
+
+@keyframes blinkTimer {
+  0% { background: var(--danger); color: var(--white); }
+  50% { background: var(--white); color: var(--primary-color); }
+  100% { background: var(--danger); color: var(--white); }
+}
+
+/* ===== PALETTE STYLES ===== */
+#paletteContainer {
+  display: grid;
+  gap: 8px;
+  margin: 20px auto;
+  max-width: 100%;
+  padding: 0 10px;
+  justify-content: center;
+}
+
+#paletteContainer button {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  font-size: 14px;
+  margin: 2px;
+  border: 1px solid var(--primary-color);
+  background: var(--light-purple);
+  color: var(--primary-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#paletteContainer button.selected {
+  background: var(--success);
+  color: var(--white);
+  border-color: #2fa92f;
+}
+
+#paletteContainer button.reviewed {
+  background: yellow;
+  color: var(--black);
+}
+
+#paletteContainer button.current {
+  border: 3px solid red;
+}
+
+#paletteContainer button.correct-answer {
+  background: #32CD32;
+  color: white;
+}
+
+#paletteContainer button.wrong-answer {
+  background: #FF6B6B;
+  color: white;
+}
+
+#paletteContainer button.not-attempted-answer {
+  background: #B0B0B0;
+  color: white;
+}
+
+/* ===== EXAM AREA STYLES ===== */
+#examArea {
+  padding: 16px;
+  text-align: center;
+  display: none;
+}
+
+#examHeader {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+#stuInfo {
+  flex: 0 0 auto;
+  text-align: left;
+  white-space: nowrap;
+}
+
+#stuQInfo {
+  flex: 1;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.sectionTitle {
+  font-size: 22px;
+  color: var(--primary-color);
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
+img.questionImg {
+  max-width: 95vw;  /* ← Use viewport width */
+  width: auto;      /* ← Maintain aspect ratio */
+  height: auto;     /* ← Maintain aspect ratio */
+  border-radius: 10px;
+  /* Prevent image dragging and selection */
+  -webkit-user-drag: none;
+  -khtml-user-drag: none;
+  -moz-user-drag: none;
+  -o-user-drag: none;
+  user-drag: none;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  transition: opacity 0.3s ease;
+}
+
+/* ===== ANIMATIONS ===== */
+.glow {
+  animation: glowPulse 1.6s infinite alternate;
+  box-shadow: 0 8px 18px rgba(75,0,130,0.12);
+}
+
+@keyframes glowPulse {
+  0% { box-shadow: 0 6px 10px rgba(75,0,130,0.06); transform: translateY(0); }
+  50% { box-shadow: 0 12px 30px rgba(75,0,130,0.14); transform: translateY(-2px); }
+  100% { box-shadow: 0 6px 10px rgba(75,0,130,0.06); transform: translateY(0); }
+}
+
+/* ===== SECURITY OVERLAY STYLES ===== */
+#fullRedOverlay {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  display: none;
+  background: red;
+  z-index: 9999;
+  pointer-events: auto;
+}
+
+#accessDeniedBox {
+  position: fixed;
+  left: 50%;
+  top: 40%;
+  transform: translate(-50%, -50%);
+  z-index: 10000;
+  color: var(--white);
+  text-align: center;
+  display: none;
+  pointer-events: auto;
+}
+
+#accessDeniedBox h1 {
+  font-size: 48px;
+  font-weight: 900;
+  margin: 0 0 18px 0;
+  color: var(--white);
+  text-shadow: 0 2px 6px rgba(0,0,0,0.4);
+}
+
+#callAdminBtn {
+  padding: 12px 22px;
+  border-radius: 12px;
+  font-weight: 800;
+}
+
+/* ===== MODAL STYLES ===== */
+.confirmModal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.45);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 10001;
+}
+
+.confirmBox {
+  background: var(--white);
+  padding: 20px;
+  border-radius: 12px;
+  min-width: 280px;
+  text-align: center;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+
+.confirmBox p {
+  font-size: 18px;
+  color: var(--primary-color);
+  margin-bottom: 15px;
+}
+
+.confirmBox button {
+  margin: 0 10px;
+  padding: 8px 16px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+#adminPassModal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.6);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 20000;
+}
+
+#adminPassBox {
+  background: var(--white);
+  padding: 20px;
+  text-align: center;
+  width: 260px;
+  border-radius: 12px;
+}
+
+#adminPassBox input {
+  width: 90%;
+  padding: 10px;
+  border: 1px solid var(--primary-color);
+  border-radius: 8px;
+  margin-bottom: 10px;
+}
+
+/* ===== TIMER WARNING STYLES ===== */
+.blinkLine {
+  animation: blinkLineAnim 1s infinite;
+}
+
+@keyframes blinkLineAnim {
+  0% { background: #ffcccc; }
+  50% { background: var(--white); }
+  100% { background: #ffcccc; }
+}
+
+/* ===== FONT SIZE ADJUSTMENTS ===== */
+#stuInfo, #stuQInfo, #timerEl {
+  font-size: 20px !important;
+}
+
+/* Increase table row height vertically */
+table td, table th {
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+/* ===== RESPONSIVE STYLES ===== */
+@media (max-width: 600px) {
+  #accessDeniedBox h1 {
+    font-size: 28px;
+  }
+  
+  #callAdminBtn {
+    padding: 10px 14px;
+  }
+  
+  .form-group {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .form-group label {
+    text-align: left;
+    width: auto;
+    margin-bottom: 5px;
+  }
+  
+  #examHeader {
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  #stuInfo, #stuQInfo {
+    text-align: center;
+  }
+  
+  .navContainer {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .navBtn {
+    width: 80%;
+    margin-bottom: 10px;
+    margin-left: 0;
+    margin-right: 0;
+  }
+  
+  #paletteContainer {
+    grid-template-columns: repeat(5, 1fr) !important;
+    gap: 6px;
+  }
+  
+  #paletteContainer button {
+    width: 35px;
+    height: 35px;
+    font-size: 12px;
+  }
+}
+
+@media (min-width: 601px) and (max-width: 900px) {
+  #paletteContainer {
+    grid-template-columns: repeat(10, 1fr) !important;
+  }
+}
+
+@media (min-width: 901px) and (max-width: 1200px) {
+  #paletteContainer {
+    grid-template-columns: repeat(15, 1fr) !important;
+  }
+}
+
+@media (min-width: 1201px) {
+  #paletteContainer {
+    grid-template-columns: repeat(20, 1fr) !important;
+  }
+}
+
+/* ===== ERROR MESSAGE STYLES ===== */
+.error-message {
+  color: #ff3333;
+  font-weight: 600;
+  padding: 10px;
+  margin: 10px 0;
+  border-radius: 6px;
+  background: rgba(255, 102, 102, 0.1);
+  border: 1px solid #ff6666;
+  animation: blinkRed 1s infinite;
+}
+
+@keyframes blinkRed {
+  0% { opacity: 1; }
+  50% { opacity: 0.6; }
+  100% { opacity: 1; }
+}
+
+/* ===== RESULTS TABLE STYLES ===== */
+.results-table {
+  width: 100%;
+  max-width: 900px;
+  margin: 20px auto;
+  border-collapse: collapse;
+  font-size: 18px;
+  text-align: center;
+}
+
+.results-table th {
+  background: #E6E6FA;
+  padding: 15px;
+  border: 1px solid var(--primary-color);
+}
+
+.results-table td {
+  padding: 15px;
+  border: 1px solid var(--primary-color);
+}
+
+.results-table tr:nth-child(even) {
+  background: #f9f9f9;
+}
+
+.results-table tr:hover {
+  background: #f0f0ff;
+}
+
+/* ===== REVIEW MODE STYLES ===== */
+.answer-status {
+  margin: 10px 0;
+  padding: 10px;
+  border-radius: 8px;
+  font-weight: bold;
+}
+
+.answer-status.correct {
+  background: #d4edda;
+  color: #155724;
+  border: 1px solid #c3e6cb;
+}
+
+.answer-status.wrong {
+  background: #f8d7da;
+  color: #721c24;
+  border: 1px solid #f5c6cb;
+}
+
+.answer-status.not-attempted {
+  background: #e2e3e5;
+  color: #383d41;
+  border: 1px solid #d6d8db;
+}
+
+.correct-answer {
+  color: #155724;
+  font-weight: bold;
+}
+
+.wrong-answer {
+  color: #721c24;
+  font-weight: bold;
+}
+
+/* ===== AREA STYLES ===== */
+#summaryArea, #reviewArea {
+  display: none;
+  padding: 20px;
+}
+
+.area-header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.area-header h2 {
+  color: #4B0082;
+  margin-bottom: 10px;
+}
+
+/* ===== VERTICAL GAP STYLES ===== */
+.options-container {
+  margin-bottom: 60px; /* Increased gap between options and navigation */
+}
+
+.navContainer {
+  margin-top: 40px; /* Additional gap above navigation */
+  display: flex;
+  justify-content: center;
+  gap: 20px; /* Added gap between navigation buttons */
+  flex-wrap: wrap;
+}
+
+/* ===== SECURITY MESSAGE STYLES ===== */
+.security-message {
+  background: #fff3cd;
+  border: 1px solid #ffeaa7;
+  color: #856404;
+  padding: 15px;
+  border-radius: 8px;
+  margin: 20px 0;
+  text-align: center;
+  font-weight: bold;
+}
+
+/* ===== AUTO TRANSITION STYLES ===== */
+.auto-transition-message {
+  background: #d4edda;
+  border: 1px solid #c3e6cb;
+  color: #155724;
+  padding: 15px;
+  border-radius: 8px;
+  margin: 20px 0;
+  text-align: center;
+  font-weight: bold;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.02); }
+  100% { transform: scale(1); }
+}
+
+.waiting-message {
+  background: #d1ecf1;
+  border: 1px solid #bee5eb;
+  color: #0c5460;
+  padding: 20px;
+  border-radius: 8px;
+  margin: 30px 0;
+  text-align: center;
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.waiting-timer {
+  font-size: 24px;
+  font-weight: bold;
+  color: #4B0082;
+  margin: 10px 0;
+}
+
+/* ===== LOADING STYLES ===== */
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+  text-align: center;
+}
+
+.spinner {
+  border: 5px solid #f3f3f3;
+  border-top: 5px solid #4B0082;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  animation: spin 1s linear infinite;
+  margin-bottom: 20px;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* ===== WARNING BANNER STYLES ===== */
+.warning-banner {
+  background: #ffcccc;
+  color: #721c24;
+  padding: 15px;
+  text-align: center;
+  font-weight: bold;
+  border: 1px solid #f5c6cb;
+  border-radius: 8px;
+  margin: 20px 0;
+}
+
+/* ===== IMAGE ERROR STYLES ===== */
+.image-error {
+  background: #ffebee;
+  border: 2px solid #ffcdd2;
+  color: #c62828;
+  padding: 20px;
+  border-radius: 8px;
+  margin: 20px 0;
+  text-align: center;
+  font-weight: bold;
+}
+
+.image-error h3 {
+  margin: 0 0 10px 0;
+  color: #c62828;
+}
+
+.loading-message {
+  background: #e3f2fd;
+  border: 2px solid #bbdefb;
+  color: #1565c0;
+  padding: 15px;
+  border-radius: 8px;
+  margin: 10px 0;
+  text-align: center;
+  font-weight: bold;
+}
+
+/* ===== SUCCESS MESSAGE STYLES ===== */
+.success-message {
+  background: #d4edda;
+  color: #155724;
+  padding: 20px;
+  border-radius: 8px;
+  margin: 20px 0;
+  text-align: center;
+  font-weight: bold;
+  border: 1px solid #c3e6cb;
+}
+
+.success-message h3 {
+  margin: 0 0 10px 0;
+  color: #155724;
+}
+
+/* ===== SMOOTH TRANSITION STYLES ===== */
+.question-transition {
+  transition: all 0.3s ease-in-out;
+}
+
+.question-fade-in {
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ===== PRELOADING STYLES ===== */
+.preload-image {
+  position: absolute;
+  left: -9999px;
+  top: -9999px;
+  opacity: 0;
+}
+
+/* ===== DETAILED RESULTS TABLE STYLES ===== */
+.detailed-results-table {
+  width: 100%;
+  max-width: 900px;
+  margin: 30px auto;
+  border-collapse: collapse;
+  font-size: 18px;
+  text-align: center;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.detailed-results-table th {
+  background: #4B0082;
+  color: white;
+  padding: 18px;
+  border: 1px solid var(--primary-color);
+  font-weight: bold;
+}
+
+.detailed-results-table td {
+  padding: 18px;
+  border: 1px solid var(--primary-color);
+}
+
+.detailed-results-table tr:nth-child(even) {
+  background: #f8f6ff;
+}
+
+.detailed-results-table tr:hover {
+  background: #f0f0ff;
+  transform: scale(1.01);
+  transition: transform 0.2s ease;
+}
+
+.detailed-results-table .total-row {
+  background: #E6E6FA !important;
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.detailed-results-table .highlight {
+  background: #d4edda;
+  font-weight: bold;
+}
+</style>
+</head>
+
+<body>
+
+<header>LFJC ONLINE EXAMINATION</header>
+
+<div id="studentEntry">
+  <div class="warning-banner" id="examWarning" style="display:none;">
+    <p>⚠️ WARNING: Exam in progress. Do not refresh or close this window!</p>
+  </div>
+  
+  <div class="form-group"><label>NAME</label><input type="text" id="stuName" placeholder="Only letters & spaces" autocomplete="off"></div>
+  <div class="form-group"><label>SECTION</label><input type="text" id="stuSection" placeholder="Letters & digits" autocomplete="off"></div>
+  <div class="form-group"><label>ROLL NUMBER</label><input type="text" id="stuRoll" placeholder="Digits only" autocomplete="off"></div>
+  <div class="form-group"><label>ADMISSION NUMBER</label><input type="text" id="stuAdm" placeholder="Digits only" autocomplete="off"></div>
+  <div class="form-group"><button id="stuStartBtn" style="display:none;">Start Exam</button></div>
+  <p id="studentMsg"></p>
+  <div id="errorMessages"></div>
+  
+  <div id="resumeExamSection" style="display:none; margin-top: 20px;">
+    <div class="security-message">
+      <p>You have an exam in progress. Would you like to resume?</p>
+      <button id="resumeExamBtn" class="navBtn">Resume Exam</button>
+    </div>
+  </div>
+</div>
+
+<div id="examArea" style="display:none;">
+  <div id="examHeader" style="display:flex;align-items:center;width:100%;font-weight:bold;">
+    <div id="stuInfo" style="flex:0 0 auto;text-align:left; white-space:nowrap;"></div>
+    <div id="stuQInfo" style="flex:1;text-align:center; white-space:nowrap;"></div>
+    <div style="flex:0 0 auto;text-align:right; white-space:nowrap;">
+        <span id="timerEl">🕒 00:00</span>
+    </div>
+  </div>
+
+  <div id="questionContainer" style="text-align:center;margin-top:10px;"></div>
+
+  <div class="navContainer">
+    <button class="navBtn" id="prevBtn">⬅ Previous</button>
+    <button class="navBtn" id="markReviewBtn">Review</button>
+    <button class="navBtn" id="nextBtn">Next ➡</button>
+    <button class="navBtn" id="submitBtn">Submit Exam</button>
+  </div>
+
+  <div id="paletteContainer"></div>
+</div>
+
+<!-- Summary Area -->
+<div id="summaryArea">
+  <div class="area-header">
+    <h2>📊 Exam Summary - <span id="summaryStudentName"></span></h2>
+    <div>
+      <b>Section:</b> <span id="summarySection"></span> | 
+      <b>Roll:</b> <span id="summaryRoll"></span> | 
+      <b>Admission No:</b> <span id="summaryAdm"></span>
+    </div>
+  </div>
+  
+  <div id="summaryTableContainer" style="overflow-x:auto;display:flex;justify-content:center;width:100%;"></div>
+  
+  <div style="text-align:center; margin:30px 0;">
+    <div id="waitingMessage" class="waiting-message">
+      <div>⏳ Waiting for Exam Time to Complete</div>
+      <div class="waiting-timer" id="waitingTimer">00:00</div>
+      <div>Detailed solutions will be available automatically when the exam time is over.</div>
+    </div>
+    <div id="autoTransitionMessage" class="auto-transition-message" style="display:none;">
+      🔄 Auto-transitioning to detailed solutions in <span id="countdown">5</span> seconds...
+    </div>
+    <button id="closeSummaryBtn" class="navBtn" style="background:linear-gradient(145deg, #dc3545, #c82333);">Close</button>
+  </div>
+</div>
+
+<!-- Review Area -->
+<div id="reviewArea">
+  <div class="area-header">
+    <h2>📝 Detailed Solutions - <span id="reviewStudentName"></span></h2>
+    <div>
+      <b>Section:</b> <span id="reviewSection"></span> | 
+      <b>Roll:</b> <span id="reviewRoll"></span> | 
+      <b>Admission No:</b> <span id="reviewAdm"></span>
+    </div>
+  </div>
+  
+  <!-- Results Table in Detailed Solutions -->
+  <div id="detailedResultsContainer" style="overflow-x:auto;display:flex;justify-content:center;width:100%;margin:30px 0;"></div>
+  
+  <div id="reviewQuestionsContainer"></div>
+  
+  <div style="text-align:center; margin:30px 0;">
+    <button id="closeReviewBtn" class="navBtn" style="background:linear-gradient(145deg, #dc3545, #c82333);">Close</button>
+  </div>
+</div>
+
+<footer>LFJC@2025 All rights reserved</footer>
+
+<div id="fullRedOverlay"></div>
+<div id="accessDeniedBox">
+  <h1>ACCESS DENIED</h1>
+  <button id="callAdminBtn" class="glow">Enter Password</button>
+</div>
+
+<div class="confirmModal" id="confirmModal">
+  <div class="confirmBox">
+    <p id="confirmText">Confirm?</p>
+    <button id="confirmYes">Yes</button>
+    <button id="confirmNo">No</button>
+  </div>
+</div>
+
+<div id="adminPassModal">
+  <div id="adminPassBox">
+    <h3>Enter Admin Password</h3>
+    <input type="password" id="adminPassInput">
+    <br><br>
+    <button id="adminPassSubmit">Submit</button>
+  </div>
+</div>
+
+<!-- Enhanced Screenshot Protection -->
+<div id="screenshotProtection">
+  <div class="screenshot-dots"></div>
+</div>
+<div id="screenshotBlock"></div>
+
+<script>
+// ===== CONFIGURATION =====
+const MARK_PER_CORRECT = 4, MARK_PER_WRONG = -1;
+const EXAM_DURATION_MINUTES = 115; // 5 minutes for testing
+const EXAM_DURATION_MS = EXAM_DURATION_MINUTES * 60 * 1000;
+const STORAGE_KEY_PREFIX = "lfjc_exam_";
+const MAX_QUESTIONS = 60; // Maximum expected questions
+
+// ===== GOOGLE SHEETS CONFIGURATION =====
+const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzOmyTxYZMUgW1bJzMWCYuTp1RBJ88g0VNn0YUk2syAeGYfcJciQeXCnjP3oZZmZdkOOg/exec";
+
+// ===== GLOBAL VARIABLES =====
+let images = [];
+let answerKey = [];
+let keyLoaded = false;
+let sheetReady = false;
+let hasSubmitted = false;
+let examStartTime = null;
+let waitingTimerInterval = null;
+let autoTransitionTimer = null;
+let examInProgress = false;
+let preloadedImages = {}; // Cache for preloaded images
+let currentSubjData = null; // Store subject data for detailed solutions
+
+const subjects = ["Maths", "Physics", "Chemistry"];
+
+let examData = {files: [], subjectNames: [], keys: [], originalOrder: []};
+let progress = null, timerInterval = null;
+
+// ===== ENHANCED SCREENSHOT PROTECTION =====
+function setupScreenshotProtection() {
+    const protection = document.getElementById('screenshotProtection');
+    const block = document.getElementById('screenshotBlock');
+    
+    // Create multiple protection layers
+    protection.innerHTML = '<div class="screenshot-dots"></div>';
+    
+    // Additional protection: detect and block screenshot tools
+    const style = document.createElement('style');
+    style.textContent = `
+        /* Block common screenshot tools */
+        body * {
+            -webkit-user-select: none !important;
+            -moz-user-select: none !important;
+            -ms-user-select: none !important;
+            user-select: none !important;
+        }
+        
+        /* Disable text selection */
+        ::selection {
+            background: transparent !important;
+        }
+        ::-moz-selection {
+            background: transparent !important;
+        }
+        
+        /* Anti-screenshot patterns */
+        @media print {
+            body * {
+                visibility: hidden !important;
+            }
+        }
+    `;
+    document.head.appendChild(style);
+    
+    // Detect screenshot attempts
+    document.addEventListener('keydown', function(e) {
+        if ((e.ctrlKey && e.key === 'PrintScreen') || e.key === 'PrintScreen' || 
+            (e.ctrlKey && e.shiftKey && e.key === 'S') || 
+            (e.metaKey && e.shiftKey && e.key === '4')) {
+            e.preventDefault();
+            e.stopPropagation();
+            
+            // Flash protection
+            protection.style.background = 'rgba(255,0,0,0.3)';
+            setTimeout(() => {
+                protection.style.background = 'transparent';
+            }, 500);
+            
+            return false;
+        }
+    });
+    
+    // Additional protection for right-click and drag
+    document.addEventListener('dragstart', function(e) {
+        e.preventDefault();
+        return false;
+    });
+    
+    document.addEventListener('selectstart', function(e) {
+        e.preventDefault();
+        return false;
+    });
+}
+
+// ===== KEYBOARD NAVIGATION =====
+function setupKeyboardNavigation() {
+    document.addEventListener('keydown', function(e) {
+        // Handle Enter key in form fields - move to next field or show start button
+        if (document.getElementById('studentEntry').style.display !== 'none') {
+            if (['stuName', 'stuSection', 'stuRoll', 'stuAdm'].includes(document.activeElement.id) && e.key === 'Enter') {
+                e.preventDefault();
+                const fields = ['stuName', 'stuSection', 'stuRoll', 'stuAdm'];
+                const currentIndex = fields.indexOf(document.activeElement.id);
+                if (currentIndex < fields.length - 1) {
+                    document.getElementById(fields[currentIndex + 1]).focus();
+                } else if (validateStudentInputs()) {
+                    document.getElementById('stuStartBtn').focus();
+                }
+                return;
+            }
+            
+            // Handle Enter key when start button is focused - show confirmation
+            if (document.activeElement === document.getElementById('stuStartBtn') && e.key === 'Enter') {
+                e.preventDefault();
+                if (validateStudentInputs()) {
+                    showConfirm("Start Exam?", startWithSecurity);
+                }
+                return;
+            }
+        }
+
+        // Don't handle modal keyboard events here - they're handled in showConfirm function
+        if (document.getElementById('confirmModal').style.display === 'flex') {
+            // Let the showConfirm function handle all modal keyboard events
+            return;
+        }
+
+        // Handle admin password modal keyboard navigation
+        if (document.getElementById('adminPassModal').style.display === 'flex') {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                document.getElementById('adminPassSubmit').click();
+            } else if (e.key === 'Escape') {
+                e.preventDefault();
+                document.getElementById('adminPassModal').style.display = 'none';
+            }
+            return;
+        }
+
+        // Only handle keyboard navigation when exam is in progress
+        if (!progress || document.getElementById('examArea').style.display !== 'block') {
+            return;
+        }
+
+        switch(e.key) {
+            case 'ArrowLeft':
+                e.preventDefault();
+                if (progress.currentIndex > 0) {
+                    progress.currentIndex--;
+                    renderQuestion();
+                    renderPalette();
+                    updateNavButtons();
+                }
+                break;
+                
+            case 'ArrowRight':
+                e.preventDefault();
+                if (progress.currentIndex < examData.files.length - 1) {
+                    progress.currentIndex++;
+                    renderQuestion();
+                    renderPalette();
+                    updateNavButtons();
+                }
+                break;
+                
+            case 'Enter':
+                e.preventDefault();
+                // Only trigger submit if the submit button is focused
+                if (document.activeElement === document.getElementById('submitBtn')) {
+                    showConfirm("Submit Exam?", x => { if (x) submitExam(); });
+                }
+                break;
+                
+            case '1':
+            case '2':
+            case '3':
+            case '4':
+                e.preventDefault();
+                // Map 1-4 to A-D options
+                const optionLetters = ['A', 'B', 'C', 'D'];
+                const selectedOption = optionLetters[parseInt(e.key) - 1];
+                progress.answers[progress.currentIndex] = (progress.answers[progress.currentIndex] === selectedOption ? null : selectedOption);
+                renderPalette();
+                updateOptionsDisplay();
+                break;
+                
+            case 'r':
+            case 'R':
+                e.preventDefault();
+                // Toggle review
+                progress.review[progress.currentIndex] = !progress.review[progress.currentIndex];
+                document.getElementById('markReviewBtn').textContent = progress.review[progress.currentIndex] ? "Unreview" : "Review";
+                renderPalette();
+                break;
+        }
+    });
+}
+
+// ===== ENHANCED MODAL KEYBOARD SUPPORT =====
+function setupModalKeyboardSupport() {
+    // Enhanced confirmation modal with better keyboard support
+    const confirmModal = document.getElementById('confirmModal');
+    const confirmYes = document.getElementById('confirmYes');
+    const confirmNo = document.getElementById('confirmNo');
+    
+    // Trap focus within modal
+    confirmModal.addEventListener('keydown', function(e) {
+        if (e.key === 'Tab') {
+            e.preventDefault();
+            if (document.activeElement === confirmYes) {
+                confirmNo.focus();
+            } else {
+                confirmYes.focus();
+            }
+        }
+    });
+}
+
+// ===== ERROR HANDLING =====
+function showError(message) {
+    const errorDiv = document.getElementById('errorMessages');
+    errorDiv.innerHTML = `<div class="error-message">${message}</div>`;
+}
+
+function clearErrors() {
+    document.getElementById('errorMessages').innerHTML = '';
+}
+
+// ===== SECURITY MEASURES =====
+document.addEventListener('contextmenu', function(e) {
+    e.preventDefault();
+    return false;
+});
+
+// Disable keyboard shortcuts for print, save, etc.
+document.addEventListener('keydown', function(e) {
+    // Disable F12, Ctrl+Shift+I, Ctrl+Shift+J, Ctrl+U, Ctrl+S, Ctrl+P, PrintScreen
+    if (e.keyCode === 123 || 
+        (e.ctrlKey && e.shiftKey && e.keyCode === 73) ||
+        (e.ctrlKey && e.shiftKey && e.keyCode === 74) ||
+        (e.ctrlKey && e.keyCode === 85) ||
+        (e.ctrlKey && e.keyCode === 83) ||
+        (e.ctrlKey && e.keyCode === 80) ||
+        e.keyCode === 44 ||
+        (e.ctrlKey && e.key === 'p') ||
+        (e.metaKey && e.key === 'p')) {
+        e.preventDefault();
+        e.stopPropagation();
+        return false;
+    }
+});
+
+// Prevent dragging of images
+document.addEventListener('dragstart', function(e) {
+    if (e.target.tagName === 'IMG') {
+        e.preventDefault();
+        return false;
+    }
+});
+
+// ===== OPTIMIZED DATA SENDING TO GOOGLE SHEETS =====
+async function sendAllSubjectsToGoogleSheet(subjData) {
+    if (!sheetReady || hasSubmitted) {
+        console.log("Sheet not ready or already submitted");
+        return;
+    }
+    
+    const url = GOOGLE_SCRIPT_URL;
+    
+    // Initialize marks for all subjects
+    let mathsMarks = 0, physicsMarks = 0, chemistryMarks = 0, totalMarks = 0;
+    
+    // Extract marks for each subject with better detection
+    for (let subject in subjData) {
+        const subjectLower = subject.toLowerCase().trim();
+        const marks = subjData[subject].marks;
+        
+        console.log(`Processing subject: "${subject}" (lowercase: "${subjectLower}") with marks: ${marks}`);
+        
+        if (subjectLower.includes('math')) {
+            mathsMarks = marks;
+            console.log(`Identified as Mathematics: ${marks}`);
+        } else if (subjectLower.includes('phys')) {
+            physicsMarks = marks;
+            console.log(`Identified as Physics: ${marks}`);
+        } else if (subjectLower.includes('chem')) {
+            chemistryMarks = marks;
+            console.log(`Identified as Chemistry: ${marks}`);
+        }
+        totalMarks += marks;
+    }
+
+    // Create payload with student info and ALL subject marks
+    const payload = {
+        student_name: progress.student.name,
+        section: progress.student.sec,
+        roll_number: progress.student.roll,
+        admission_number: progress.student.adm,
+        maths_marks: mathsMarks.toFixed(2),
+        physics_marks: physicsMarks.toFixed(2),
+        chemistry_marks: chemistryMarks.toFixed(2),
+        total_marks: totalMarks.toFixed(2),
+        exam_time: new Date().toLocaleTimeString(),
+        timestamp: new Date().toISOString()
+    };
+
+    console.log("Final payload to send:", payload);
+
+    // Set flag to prevent multiple submissions
+    hasSubmitted = true;
+    
+    // Implement retry logic with proper error handling
+    let retries = 3;
+    let success = false;
+    
+    for (let attempt = 1; attempt <= retries; attempt++) {
+        try {
+            console.log(`Attempt ${attempt} to send data...`);
+            
+            // Use URLSearchParams for better compatibility with Google Apps Script
+            const formData = new URLSearchParams();
+            for (const key in payload) {
+                formData.append(key, payload[key]);
+                console.log(`Added to form data: ${key} = ${payload[key]}`);
+            }
+            
+            const response = await fetch(url, {
+                method: "POST",
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+                },
+                body: formData
+            });
+            
+            if (response.ok) {
+                const data = await response.text();
+                console.log("✅ All marks saved successfully:", payload);
+                console.log("Google Sheets response:", data);
+                
+                // Show success message to student
+                showSubmissionSuccess();
+                success = true;
+                break; // Exit retry loop on success
+                
+            } else {
+                throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+            }
+        } catch (error) {
+            console.error(`❌ Attempt ${attempt} failed:`, error);
+            
+            if (attempt < retries) {
+                console.log(`Retrying in 2 seconds... (${retries - attempt} attempts remaining)`);
+                await new Promise(resolve => setTimeout(resolve, 2000));
+            } else {
+                console.error("All attempts failed");
+                // Store locally for later recovery
+                storeResultLocally(payload);
+                showLocalStorageWarning();
+            }
+        }
+    }
+}
+
+// Local storage fallback function
+function storeResultLocally(payload) {
+    try {
+        const pendingResults = JSON.parse(localStorage.getItem('pendingResults') || '[]');
+        pendingResults.push({
+            ...payload,
+            id: Date.now().toString(),
+            storedAt: new Date().toISOString()
+        });
+        localStorage.setItem('pendingResults', JSON.stringify(pendingResults));
+        console.log("Result stored locally for later sync");
+    } catch (error) {
+        console.error("Failed to store locally:", error);
+    }
+}
+
+// Function to show local storage warning
+function showLocalStorageWarning() {
+    const warningMsg = `
+        <div class="warning-banner">
+            ⚠️ Connection Issue - Results stored locally. They will sync automatically when online.
+            <br><small>Your data is safe and will be submitted when connection is restored.</small>
+        </div>
+    `;
+    
+    const summaryContainer = document.getElementById('summaryTableContainer');
+    if (summaryContainer) {
+        summaryContainer.insertAdjacentHTML('beforebegin', warningMsg);
+    }
+}
+
+// Function to show submission success
+function showSubmissionSuccess() {
+    const successMsg = `
+        <div class="success-message">
+            <h3>✅ Results Successfully Saved!</h3>
+            <p>Your marks have been recorded in the system.</p>
+            <p><small>Student: ${progress.student.name} | Roll: ${progress.student.roll}</small></p>
+        </div>
+    `;
+    
+    // Add this message to the summary area
+    const summaryContainer = document.getElementById('summaryTableContainer');
+    if (summaryContainer) {
+        summaryContainer.insertAdjacentHTML('beforebegin', successMsg);
+    }
+}
+
+// Function to retry failed uploads
+async function retryFailedUploads() {
+    const pendingResults = JSON.parse(localStorage.getItem('pendingResults') || '[]');
+    
+    if (pendingResults.length === 0) {
+        console.log("No pending results to sync");
+        return;
+    }
+    
+    console.log(`Retrying ${pendingResults.length} pending results...`);
+    
+    const successfulUploads = [];
+    const failedUploads = [];
+    
+    for (const result of pendingResults) {
+        try {
+            const formData = new URLSearchParams();
+            for (const key in result) {
+                if (key !== 'id' && key !== 'storedAt') {
+                    formData.append(key, result[key]);
+                }
+            }
+            
+            const response = await fetch(GOOGLE_SCRIPT_URL, {
+                method: "POST",
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+                },
+                body: formData
+            });
+            
+            if (response.ok) {
+                successfulUploads.push(result.id);
+                console.log(`✅ Retry successful for result ${result.id}`);
+            } else {
+                failedUploads.push(result);
+                console.log(`❌ Retry failed for result ${result.id}: HTTP ${response.status}`);
+            }
+        } catch (error) {
+            failedUploads.push(result);
+            console.error(`❌ Retry failed for result ${result.id}:`, error);
+        }
+        
+        // Small delay between retries
+        await new Promise(resolve => setTimeout(resolve, 500));
+    }
+    
+    // Update local storage
+    localStorage.setItem('pendingResults', JSON.stringify(failedUploads));
+    
+    console.log(`Retry completed: ${successfulUploads.length} successful, ${failedUploads.length} still pending`);
+    
+    if (successfulUploads.length > 0) {
+        console.log("Successfully synced previously stored results");
+    }
+}
+
+// Helper function for better subject identification
+function identifySubject(subjectName) {
+    const name = subjectName.toLowerCase().trim();
+    
+    if (name.includes('math') || name === 'maths') {
+        return 'Mathematics';
+    } else if (name.includes('phys')) {
+        return 'Physics';
+    } else if (name.includes('chem')) {
+        return 'Chemistry';
+    }
+    
+    return subjectName; // Return original if no match
+}
+
+// ===== IMAGE PRELOADING FOR SMOOTH TRANSITIONS =====
+function preloadQuestionImages() {
+    console.log("Preloading question images...");
+    examData.files.forEach((file, index) => {
+        if (!preloadedImages[file]) {
+            const img = new Image();
+            img.src = file;
+            img.onload = function() {
+                preloadedImages[file] = img;
+                console.log(`Preloaded image: ${file}`);
+            };
+            img.onerror = function() {
+                console.error(`Failed to preload image: ${file}`);
+            };
+        }
+    });
+}
+
+// ===== FIXED CONFIRMATION MODAL FUNCTION =====
+function showConfirm(msg, cb) {
+  const confirmText = document.getElementById('confirmText');
+  const confirmModal = document.getElementById('confirmModal');
+  const confirmYes = document.getElementById('confirmYes');
+  const confirmNo = document.getElementById('confirmNo');
+  
+  confirmText.textContent = msg;
+  confirmModal.style.display = "flex";
+  
+  // Set up button handlers
+  confirmYes.onclick = () => { confirmModal.style.display = "none"; cb(true); };
+  confirmNo.onclick = () => { confirmModal.style.display = "none"; cb(false); };
+  
+  // Focus the Yes button for keyboard navigation
+  setTimeout(() => confirmYes.focus(), 100);
+  
+  // Enhanced keyboard navigation for modal
+  const handleKeydown = (e) => {
+    if (e.key === 'ArrowLeft') {
+      e.preventDefault();
+      // Move left: Yes -> No (wrap around)
+      if (document.activeElement === confirmYes) {
+        confirmNo.focus();
+      } else {
+        confirmYes.focus();
+      }
+    } else if (e.key === 'ArrowRight') {
+      e.preventDefault();
+      // Move right: No -> Yes (wrap around)
+      if (document.activeElement === confirmNo) {
+        confirmYes.focus();
+      } else {
+        confirmYes.focus();
+      }
+    } else if (e.key === 'Tab') {
+      e.preventDefault();
+      // Tab cycles between buttons
+      if (document.activeElement === confirmYes) {
+        confirmNo.focus();
+      } else {
+        confirmYes.focus();
+      }
+    } else if (e.key === 'Enter') {
+      e.preventDefault();
+      if (document.activeElement === confirmYes) {
+        confirmYes.click();
+      } else if (document.activeElement === confirmNo) {
+        confirmNo.click();
+      }
+    } else if (e.key === 'Escape') {
+      e.preventDefault();
+      confirmNo.click();
+    }
+  };
+  
+  // Add event listener
+  document.addEventListener('keydown', handleKeydown);
+  
+  // Remove event listener when modal closes
+  const removeListener = () => {
+    document.removeEventListener('keydown', handleKeydown);
+    // Also remove this click listener to prevent memory leaks
+    confirmModal.removeEventListener('click', removeListener);
+  };
+  
+  confirmModal.addEventListener('click', function backdropClick(e) {
+    // If click is on the modal backdrop (not the confirm box), treat as "No"
+    if (e.target === confirmModal) {
+      confirmNo.click();
+    }
+  });
+}
+
+// ===== INITIALIZATION =====
+// Fetch the answer key file from Answers/Key on page load
+fetch('Answers/Key')
+  .then(res => {
+    if (!res.ok) throw new Error('Key file not found or not accessible');
+    return res.text();
+  })
+  .then(text => {
+    // Expecting 5 answers per line, no commas
+    answerKey = text.trim().split('\n').map(line => line.trim().split('')).flat();
+    
+    // Build image paths - MODIFIED FOR BETTER COMPATIBILITY
+    console.log("Building image paths for", answerKey.length, "questions");
+    for (let i = 1; i <= answerKey.length; i++) {
+      // Try multiple possible image formats - you can modify this based on your actual file names
+      images.push(`questions/${i}.png`);  // Default: 1.png, 2.png, etc.
+    }
+    
+    keyLoaded = true;
+    clearErrors();
+    validateStudentInputs();
+    console.log('Loaded answer key:', answerKey);
+    console.log('Image paths:', images);
+  })
+  .catch(err => {
+    console.error('Failed to load Answers/Key:', err);
+    showError("Answer key not loaded - exam disabled. Contact administrator.");
+    validateStudentInputs();
+  });
+
+function shuffleArray(arr) {
+    const c = arr.slice();
+    for (let i = c.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [c[i], c[j]] = [c[j], c[i]];
+    }
+    return c;
+}
+
+function prepareExamData() {
+  examData.files = []; examData.subjectNames = []; examData.keys = []; examData.originalOrder = [];
+  
+  // Define EXACT question ranges for each subject as per your requirement
+  const subjectRanges = [
+    { name: "Maths", start: 1, end: 30 },      // Maths: Q1-30
+    { name: "Physics", start: 31, end: 45 },   // Physics: Q31-45
+    { name: "Chemistry", start: 46, end: 60 }  // Chemistry: Q46-60
+  ];
+  
+  let groups = [];
+  
+  // Create groups for each subject with their EXACT question ranges
+  subjectRanges.forEach(subject => {
+    const subjectQuestions = [];
+    const subjectKeys = [];
+    const subjectOriginalOrder = [];
+    
+    // Collect EXACT questions for this subject range
+    for (let i = subject.start; i <= subject.end; i++) {
+      const imgIndex = i - 1; // Convert to 0-based index for arrays
+      if (images[imgIndex] && answerKey[imgIndex]) {
+        subjectQuestions.push(images[imgIndex]);
+        subjectKeys.push(answerKey[imgIndex]);
+        subjectOriginalOrder.push(imgIndex);
+      }
+    }
+    
+    console.log(`${subject.name}: ${subjectQuestions.length} questions (${subject.start}-${subject.end})`);
+    
+    // Shuffle questions WITHIN this subject
+    const shuffledIndices = shuffleArray([...Array(subjectQuestions.length).keys()]);
+    
+    groups.push({
+      name: subject.name,
+      imgs: shuffledIndices.map(i => subjectQuestions[i]),
+      keys: shuffledIndices.map(i => subjectKeys[i]),
+      originalOrder: shuffledIndices.map(i => subjectOriginalOrder[i])
+    });
+  });
+  
+  // Shuffle the SUBJECTS themselves
+  const shuffledGroups = shuffleArray(groups);
+  
+  // Build final exam data
+  shuffledGroups.forEach(g => {
+    g.imgs.forEach((img, i) => {
+      examData.files.push(img);
+      examData.keys.push(g.keys[i]);
+      examData.subjectNames.push(g.name);
+      examData.originalOrder.push(g.originalOrder[i]);
+    });
+  });
+  
+  console.log("Final exam structure:");
+  console.log("Total questions:", examData.files.length);
+  console.log("Subject distribution:", examData.subjectNames);
+}
+
+function validateStudentInputs() {
+  const n = document.getElementById('stuName'), 
+        s = document.getElementById('stuSection'), 
+        r = document.getElementById('stuRoll'), 
+        a = document.getElementById('stuAdm');
+  
+  // Convert section to uppercase automatically
+  if (s.value) {
+    s.value = s.value.toUpperCase();
+  }
+  
+  let v1 = /^[A-Za-z .]+$/.test(n.value), 
+      v2 = /^[A-Za-z0-9]+$/.test(s.value),
+      v3 = /^[0-9]+$/.test(r.value), 
+      v4 = /^[0-9]+$/.test(a.value);
+  n.classList.toggle('error', !v1 && n.value !== ""); 
+  s.classList.toggle('error', !v2 && s.value !== "");
+  r.classList.toggle('error', !v3 && r.value !== ""); 
+  a.classList.toggle('error', !v4 && a.value !== "");
+  // Only show start when inputs valid AND key loaded
+  const startBtn = document.getElementById('stuStartBtn');
+  startBtn.style.display = (v1 && v2 && v3 && v4 && keyLoaded) ? "inline-block" : "none";
+  
+  // Show error if key not loaded
+  if (!keyLoaded) {
+    showError("Answer key not loaded - exam disabled. Contact administrator.");
+  }
+  
+  return v1 && v2 && v3 && v4 && keyLoaded;
+}
+
+["stuName", "stuSection", "stuRoll", "stuAdm"].forEach(id => {
+  document.getElementById(id).addEventListener("input", validateStudentInputs);
+});
+
+// FIXED: Start button click handler - now properly shows confirmation
+document.getElementById('stuStartBtn').onclick = () => { 
+  if (!validateStudentInputs()) return; 
+  showConfirm("Start Exam?", startWithSecurity); 
+};
+
+function startWithSecurity(ok) {
+  if (!ok) return;
+  const stuName = document.getElementById('stuName');
+  const stuSection = document.getElementById('stuSection');
+  const stuRoll = document.getElementById('stuRoll');
+  const stuAdm = document.getElementById('stuAdm');
+  
+  const studentKey = `${stuName.value}|${stuSection.value}|${stuRoll.value}|${stuAdm.value}`;
+  const stored = localStorage.getItem(studentKey), now = Date.now();
+  if (stored && now - stored < 86400000) {
+    document.getElementById('fullRedOverlay').style.display = "block"; 
+    document.getElementById('accessDeniedBox').style.display = "block";
+    document.getElementById('callAdminBtn').onclick = () => {
+      document.getElementById('adminPassModal').style.display = "flex";
+      document.getElementById('adminPassInput').focus();
+      document.getElementById('adminPassSubmit').onclick = () => {
+        const adminPassInput = document.getElementById('adminPassInput');
+        if (adminPassInput.value === "lfjc2025") {
+          document.getElementById('adminPassModal').style.display = "none";
+          document.getElementById('fullRedOverlay').style.display = "none"; 
+          document.getElementById('accessDeniedBox').style.display = "none";
+          startExam(studentKey);
+        } else alert("Incorrect password!");
+      };
+    };
+  } else startExam(studentKey);
+}
+
+function startExam(studentKey) {
+  // ensure key is loaded
+  if (!keyLoaded) {
+    alert('Answer key not loaded. Contact admin.');
+    return;
+  }
+
+  const stuName = document.getElementById('stuName');
+  const stuSection = document.getElementById('stuSection');
+  const stuRoll = document.getElementById('stuRoll');
+  const stuAdm = document.getElementById('stuAdm');
+
+  localStorage.setItem(studentKey, Date.now());
+  prepareExamData();
+  progress = {
+    answers: Array(examData.files.length).fill(null),
+    review: Array(examData.files.length).fill(false),
+    currentIndex: 0,
+    student: {name: stuName.value, sec: stuSection.value, roll: stuRoll.value, adm: stuAdm.value},
+    timeLeftSec: EXAM_DURATION_MINUTES * 60
+  };
+
+  // Set exam start time
+  examStartTime = Date.now();
+  
+  document.getElementById('studentEntry').style.display = "none";
+  document.getElementById('examArea').style.display = "block";
+  renderQuestion(); renderPalette(); startTimer(); updateNavButtons();
+  
+  // Preload all images for smooth transitions
+  preloadQuestionImages();
+  
+  // Setup enhanced screenshot protection
+  setupScreenshotProtection();
+  
+  // Setup keyboard navigation
+  setupKeyboardNavigation();
+  setupModalKeyboardSupport();
+  
+  // Mark sheet as ready (only when exam starts)
+  sheetReady = true;
+}
+
+function startTimer() {
+  const timerEl = document.getElementById('timerEl');
+  const stuInfo = document.getElementById('stuInfo');
+  const stuQInfo = document.getElementById('stuQInfo');
+  const examHeader = document.getElementById('examHeader');
+  
+  timerInterval = setInterval(() => {
+    if (progress.timeLeftSec <= 0) { clearInterval(timerInterval); submitExam(); return; }
+    progress.timeLeftSec--;
+    let m = Math.floor(progress.timeLeftSec / 60), s = progress.timeLeftSec % 60;
+    timerEl.textContent = `🕒 ${String(m).padStart(2, "0")}:${String(s).padStart(2, "0")}`;
+    stuInfo.textContent = `${progress.student.name} | ${progress.student.sec} | ${progress.student.roll} | ${progress.student.adm}`;
+    stuQInfo.textContent = `${examData.subjectNames[progress.currentIndex]} | Q ${progress.currentIndex + 1}/${examData.files.length}`;
+
+    if (progress.timeLeftSec <= 300 && progress.timeLeftSec > 60) {
+        timerEl.classList.add("blink");
+    } else { timerEl.classList.remove("blink"); }
+
+    if (progress.timeLeftSec <= 60) {
+        timerEl.classList.add("blink");
+        examHeader.classList.add("blinkLine");
+    } else {
+        examHeader.classList.remove("blinkLine");
+    }
+  }, 1000);
+}
+
+function renderQuestion() {
+  const i = progress.currentIndex;
+  const f = examData.files[i];
+  const questionContainer = document.getElementById('questionContainer');
+  
+  // Clear previous content with smooth transition
+  questionContainer.style.opacity = '0';
+  
+  setTimeout(() => {
+    // Check if image is preloaded
+    if (preloadedImages[f]) {
+      // Use preloaded image for instant display
+      questionContainer.innerHTML = '';
+      const img = preloadedImages[f].cloneNode();
+      img.className = "questionImg question-fade-in";
+      img.alt = `Question ${i + 1}`;
+      questionContainer.appendChild(img);
+      questionContainer.appendChild(document.createElement('br'));
+      renderOptions(i, questionContainer);
+      questionContainer.style.opacity = '1';
+    } else {
+      // Fallback to normal loading with minimal delay
+      questionContainer.innerHTML = '<div class="loading-message">Loading question...</div>';
+      
+      const img = new Image();
+      img.className = "questionImg";
+      img.src = f;
+      img.alt = `Question ${i + 1}`;
+      
+      img.onerror = function() {
+        console.error(`Failed to load image: ${f}`);
+        questionContainer.innerHTML = `
+          <div class="image-error">
+            <h3>❌ Image Not Found</h3>
+            <p>Could not load: ${f}</p>
+            <p>Please check that the image file exists in the questions folder.</p>
+            <p><strong>Expected file:</strong> ${f}</p>
+          </div>
+          <br>`;
+        
+        // Still show options even if image fails
+        renderOptions(i, questionContainer);
+        questionContainer.style.opacity = '1';
+      };
+      
+      img.onload = function() {
+        questionContainer.innerHTML = '';
+        questionContainer.appendChild(img);
+        questionContainer.appendChild(document.createElement('br'));
+        renderOptions(i, questionContainer);
+        questionContainer.style.opacity = '1';
+        
+        // Cache the loaded image
+        preloadedImages[f] = img.cloneNode();
+      };
+    }
+  }, 150); // Small delay for smooth transition
+}
+
+function renderOptions(questionIndex, container) {
+  const optsDiv = document.createElement("div");
+  optsDiv.className = "options-container";
+  optsDiv.style.marginTop = "50px";
+  
+  ["A", "B", "C", "D"].forEach(opt => {
+    let b = document.createElement("button"); 
+    b.className = "optBtn"; 
+    b.style.margin = "0 40px";
+    b.textContent = opt;
+    b.tabIndex = 0; // Make options focusable
+    if (progress.answers[questionIndex] === opt) b.classList.add("selected");
+    b.onclick = () => { 
+      progress.answers[questionIndex] = (progress.answers[questionIndex] === opt ? null : opt); 
+      renderPalette(); 
+      updateOptionsDisplay();
+    };
+    optsDiv.appendChild(b);
+  });
+  
+  container.appendChild(optsDiv);
+}
+
+// NEW FUNCTION: Update options display without reloading entire question
+function updateOptionsDisplay() {
+  const i = progress.currentIndex;
+  const optionButtons = document.querySelectorAll('.optBtn');
+  
+  optionButtons.forEach((btn, index) => {
+    const optionLetter = ['A', 'B', 'C', 'D'][index];
+    if (progress.answers[i] === optionLetter) {
+      btn.classList.add("selected");
+    } else {
+      btn.classList.remove("selected");
+    }
+  });
+}
+
+document.getElementById('prevBtn').onclick = () => { 
+  if (progress.currentIndex > 0) { 
+    progress.currentIndex--; 
+    renderQuestion(); 
+    renderPalette(); 
+    updateNavButtons(); 
+  } 
+};
+
+document.getElementById('nextBtn').onclick = () => { 
+  if (progress.currentIndex < examData.files.length - 1) { 
+    progress.currentIndex++; 
+    renderQuestion(); 
+    renderPalette(); 
+    updateNavButtons(); 
+  } 
+};
+
+document.getElementById('markReviewBtn').onclick = () => { 
+  progress.review[progress.currentIndex] = !progress.review[progress.currentIndex]; 
+  document.getElementById('markReviewBtn').textContent = progress.review[progress.currentIndex] ? "Unreview" : "Review"; 
+  renderPalette(); 
+};
+
+// FIXED: Submit button now properly shows confirmation with keyboard navigation
+document.getElementById('submitBtn').onclick = () => showConfirm("Submit Exam?", x => { if (x) submitExam(); });
+
+function updateNavButtons() {
+  const prevBtn = document.getElementById('prevBtn');
+  const nextBtn = document.getElementById('nextBtn');
+  const markReviewBtn = document.getElementById('markReviewBtn');
+  
+  prevBtn.style.display = progress.currentIndex === 0 ? "none" : "inline-block";
+  nextBtn.style.display = progress.currentIndex === examData.files.length - 1 ? "none" : "inline-block";
+  markReviewBtn.textContent = progress.review[progress.currentIndex] ? "Unreview" : "Review";
+}
+
+function renderPalette() {
+  const paletteContainer = document.getElementById('paletteContainer');
+  paletteContainer.innerHTML = "";
+  
+  // Grid layout will be handled by CSS media queries
+  paletteContainer.style.display = "grid";
+
+  progress.answers.forEach((ans, i) => {
+    const b = document.createElement("button"); 
+    b.textContent = i + 1;
+    b.tabIndex = 0; // Make palette buttons focusable
+    if (progress.review[i]) b.classList.add("reviewed");
+    if (i === progress.currentIndex) b.classList.add("current");
+    if (ans) b.classList.add("selected");
+    b.onclick = () => { progress.currentIndex = i; renderQuestion(); renderPalette(); updateNavButtons(); };
+    paletteContainer.appendChild(b);
+  });
+}
+
+document.addEventListener("visibilitychange", () => {
+  if (document.hidden && progress) submitExam();
+});
+
+function submitExam() {
+    if (hasSubmitted) return; // Prevent multiple submissions
+    clearInterval(timerInterval);
+    const subjData = {};
+    examData.subjectNames.forEach((s, i) => {
+        // Use the helper function for standardized subject names
+        const subjectName = identifySubject(s);
+        if (!subjData[subjectName]) subjData[subjectName] = {correct: 0, wrong: 0, blank: 0, total: 0, marks: 0};
+        
+        const ans = progress.answers[i];
+        if (ans === null) {
+            subjData[subjectName].blank++;
+        } else if (ans === examData.keys[i]) {
+            subjData[subjectName].correct++;
+            subjData[subjectName].marks += MARK_PER_CORRECT;
+        } else {
+            subjData[subjectName].wrong++;
+            subjData[subjectName].marks += MARK_PER_WRONG;
+        }
+        subjData[subjectName].total++;
+    });
+
+    // Store subject data for detailed solutions
+    currentSubjData = subjData;
+
+    // Send ALL SUBJECTS DATA TOGETHER in ONE REQUEST
+    sendAllSubjectsToGoogleSheet(subjData);
+
+    // Show summary interface first
+    showSummaryInterface(subjData);
+}
+
+function showSummaryInterface(subjData) {
+  document.getElementById('examArea').style.display = "none";
+  document.getElementById('summaryArea').style.display = "block";
+  
+  // Set student info in summary
+  document.getElementById('summaryStudentName').textContent = progress.student.name;
+  document.getElementById('summarySection').textContent = progress.student.sec;
+  document.getElementById('summaryRoll').textContent = progress.student.roll;
+  document.getElementById('summaryAdm').textContent = progress.student.adm;
+  
+  renderSummaryTable(subjData);
+  
+  // Check if exam time has actually completed
+  const timeElapsed = Date.now() - examStartTime;
+  const timeCompleted = timeElapsed >= EXAM_DURATION_MS;
+  
+  if (timeCompleted) {
+    // Auto transition to detailed solutions after 3 seconds
+    startAutoTransition();
+  } else {
+    // Start waiting timer
+    startWaitingTimer(timeElapsed);
+  }
+}
+
+function startWaitingTimer(timeElapsed) {
+    const timeRemaining = EXAM_DURATION_MS - timeElapsed;
+    const waitingTimerElement = document.getElementById('waitingTimer');
+    
+    // Update timer immediately
+    updateWaitingTimer(timeRemaining, waitingTimerElement);
+    
+    // Start interval to update timer every second
+    waitingTimerInterval = setInterval(() => {
+        timeElapsed = Date.now() - examStartTime;
+        const timeRemaining = EXAM_DURATION_MS - timeElapsed;
+        
+        updateWaitingTimer(timeRemaining, waitingTimerElement);
+        
+        // Check if time is completed
+        if (timeRemaining <= 0) {
+            clearInterval(waitingTimerInterval);
+            startAutoTransition();
+        }
+    }, 1000);
+}
+
+function updateWaitingTimer(timeRemaining, timerElement) {
+    const minutes = Math.floor(timeRemaining / 60000);
+    const seconds = Math.floor((timeRemaining % 60000) / 1000);
+    timerElement.textContent = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+}
+
+function startAutoTransition() {
+    // Clear waiting timer if exists
+    if (waitingTimerInterval) {
+        clearInterval(waitingTimerInterval);
+        waitingTimerInterval = null;
+    }
+    
+    let countdown = 3;
+    const countdownElement = document.getElementById('countdown');
+    const autoTransitionMessage = document.getElementById('autoTransitionMessage');
+    const waitingMessage = document.getElementById('waitingMessage');
+    
+    // Hide waiting message and show auto-transition message
+    waitingMessage.style.display = 'none';
+    autoTransitionMessage.style.display = 'block';
+    
+    // Start countdown
+    autoTransitionTimer = setInterval(() => {
+        countdown--;
+        countdownElement.textContent = countdown;
+        
+        if (countdown <= 0) {
+            clearInterval(autoTransitionTimer);
+            showReviewInterface();
+        }
+    }, 1000);
+}
+
+function renderSummaryTable(subjData) {
+  const container = document.getElementById('summaryTableContainer');
+  
+  let totalCorrect = 0, totalWrong = 0, totalBlank = 0, totalQs = 0, totalMarks = 0;
+  
+  // Calculate totals
+  for (let s in subjData) {
+    totalCorrect += subjData[s].correct;
+    totalWrong += subjData[s].wrong;
+    totalBlank += subjData[s].blank;
+    totalQs += subjData[s].total;
+    totalMarks += subjData[s].marks;
+  }
+  
+  let totalPer = totalQs > 0 ? ((totalCorrect / totalQs) * 100).toFixed(2) : 0;
+  
+  let html = `<table class="results-table" border="1">
+    <tr style="background:#E6E6FA;">
+      <th>Subject</th><th>Correct</th><th>Wrong</th><th>Blank</th><th>Score</th><th>Percentage</th>
+    </tr>`;
+
+  for (let s in subjData) {
+    let v = subjData[s];
+    let per = ((v.correct / v.total) * 100).toFixed(2);
+    html += `<tr>
+      <td>${s}</td>
+      <td>${v.correct}</td>
+      <td>${v.wrong}</td>
+      <td>${v.blank}</td>
+      <td>${v.marks.toFixed(2)}</td>
+      <td>${per}%</td>
+    </tr>`;
+  }
+
+  html += `<tr style="font-weight:bold;background:#D8BFD8;">
+    <td>Total</td>
+    <td>${totalCorrect}</td>
+    <td>${totalWrong}</td>
+    <td>${totalBlank}</td>
+    <td>${totalMarks.toFixed(2)}</td>
+    <td>${totalPer}%</td>
+  </tr></table>`;
+
+  container.innerHTML = html;
+}
+
+function showReviewInterface() {
+    // Clear any existing timers
+    if (waitingTimerInterval) {
+        clearInterval(waitingTimerInterval);
+        waitingTimerInterval = null;
+    }
+    if (autoTransitionTimer) {
+        clearInterval(autoTransitionTimer);
+        autoTransitionTimer = null;
+    }
+    
+    document.getElementById('summaryArea').style.display = "none";
+    document.getElementById('reviewArea').style.display = "block";
+    
+    // Set student info in review
+    document.getElementById('reviewStudentName').textContent = progress.student.name;
+    document.getElementById('reviewSection').textContent = progress.student.sec;
+    document.getElementById('reviewRoll').textContent = progress.student.roll;
+    document.getElementById('reviewAdm').textContent = progress.student.adm;
+    
+    // Render detailed results table
+    renderDetailedResultsTable();
+    
+    // Render review questions
+    renderReviewQuestions();
+}
+
+// NEW FUNCTION: Render detailed results table in review area
+function renderDetailedResultsTable() {
+  const container = document.getElementById('detailedResultsContainer');
+  
+  if (!currentSubjData) return;
+  
+  let totalCorrect = 0, totalWrong = 0, totalBlank = 0, totalQs = 0, totalMarks = 0;
+  
+  // Calculate totals
+  for (let s in currentSubjData) {
+    totalCorrect += currentSubjData[s].correct;
+    totalWrong += currentSubjData[s].wrong;
+    totalBlank += currentSubjData[s].blank;
+    totalQs += currentSubjData[s].total;
+    totalMarks += currentSubjData[s].marks;
+  }
+  
+  let totalPer = totalQs > 0 ? ((totalCorrect / totalQs) * 100).toFixed(2) : 0;
+  
+  let html = `
+    <div style="width:100%;max-width:900px;margin:0 auto;">
+      <h3 style="color:#4B0082; text-align:center; margin-bottom:20px;">📊 Final Results Summary</h3>
+      <table class="detailed-results-table" border="1">
+        <tr>
+          <th>Subject</th><th>Correct</th><th>Wrong</th><th>Blank</th><th>Score</th><th>Percentage</th>
+        </tr>`;
+
+  for (let s in currentSubjData) {
+    let v = currentSubjData[s];
+    let per = ((v.correct / v.total) * 100).toFixed(2);
+    html += `<tr>
+      <td><strong>${s}</strong></td>
+      <td>${v.correct}</td>
+      <td>${v.wrong}</td>
+      <td>${v.blank}</td>
+      <td>${v.marks.toFixed(2)}</td>
+      <td>${per}%</td>
+    </tr>`;
+  }
+
+  html += `<tr class="total-row highlight">
+    <td><strong>GRAND TOTAL</strong></td>
+    <td><strong>${totalCorrect}</strong></td>
+    <td><strong>${totalWrong}</strong></td>
+    <td><strong>${totalBlank}</strong></td>
+    <td><strong>${totalMarks.toFixed(2)}</strong></td>
+    <td><strong>${totalPer}%</strong></td>
+  </tr></table>
+    </div>`;
+
+  container.innerHTML = html;
+}
+
+function renderReviewQuestions() {
+  const container = document.getElementById('reviewQuestionsContainer');
+  container.innerHTML = '';
+  
+  // Render each question with answers
+  examData.files.forEach((file, index) => {
+    const questionDiv = document.createElement('div');
+    questionDiv.style.marginBottom = '30px';
+    questionDiv.style.padding = '20px';
+    questionDiv.style.border = '2px solid #E6E6FA';
+    questionDiv.style.borderRadius = '10px';
+    questionDiv.style.background = 'white';
+    
+    const studentAnswer = progress.answers[index];
+    const correctAnswer = examData.keys[index];
+    let status = '';
+    let statusClass = '';
+    
+    if (studentAnswer === null) {
+      status = 'Not Attempted';
+      statusClass = 'not-attempted';
+    } else if (studentAnswer === correctAnswer) {
+      status = 'Correct';
+      statusClass = 'correct';
+    } else {
+      status = 'Wrong';
+      statusClass = 'wrong';
+    }
+    
+    questionDiv.innerHTML = `
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+        <h4 style="margin:0; color:#4B0082;">Question ${index + 1} - ${examData.subjectNames[index]}</h4>
+        <div class="answer-status ${statusClass}">${status}</div>
+      </div>
+      <img src="${file}" class="questionImg" style="max-width:100%; margin-bottom:20px;" onerror="this.alt='Image not available: ${file}'">
+      <div style="margin-top:20px;">
+        <h4 style="color:#4B0082; margin-bottom:10px;">Your Answers:</h4>
+        <div style="display: flex; justify-content: center; gap: 20px; flex-wrap: wrap;">
+          ${['A', 'B', 'C', 'D'].map(opt => {
+            let btnClass = 'optBtn';
+            if (studentAnswer === opt && correctAnswer === opt) {
+              btnClass += ' correct';
+            } else if (studentAnswer === opt && studentAnswer !== correctAnswer) {
+              btnClass += ' wrong';
+            } else if (correctAnswer === opt) {
+              btnClass += ' correct';
+            } else if (studentAnswer === null) {
+              btnClass += ' not-attempted';
+            }
+            return `<button class="${btnClass}" style="margin:5px;">${opt}</button>`;
+          }).join('')}
+        </div>
+        <div style="margin-top:15px; font-weight:bold;">
+          ${studentAnswer ? 
+            `<span class="${studentAnswer === correctAnswer ? 'correct-answer' : 'wrong-answer'}">
+              Your Answer: ${studentAnswer} 
+              ${studentAnswer !== correctAnswer ? ` | Correct Answer: ${correctAnswer}` : ''}
+            </span>` :
+            `<span class="not-attempted">Not Attempted | Correct Answer: ${correctAnswer}</span>`
+          }
+        </div>
+      </div>
+    `;
+    
+    container.appendChild(questionDiv);
+  });
+}
+
+// Event listeners for navigation
+document.getElementById('closeSummaryBtn').onclick = () => {
+  window.close();
+};
+
+document.getElementById('closeReviewBtn').onclick = () => {
+  window.close();
+};
+
+// Initialize keyboard navigation when page loads
+document.addEventListener('DOMContentLoaded', function() {
+  setupKeyboardNavigation();
+  setupModalKeyboardSupport();
+  
+  // Auto-convert section to uppercase
+  document.getElementById('stuSection').addEventListener('input', function() {
+    this.value = this.value.toUpperCase();
+  });
+  
+  // Try to sync any pending results on page load
+  setTimeout(() => {
+    retryFailedUploads();
+  }, 3000);
+});
+</script>
+</body>
+</html>
